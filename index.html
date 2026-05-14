@@ -3,13 +3,257 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta http-equiv="refresh" content="0; url=privacy-policy.html" />
-    <title>RideAnalyzer - Politica de Privacidade</title>
+    <meta name="description" content="RideAnalyzer: politica de privacidade, exclusao de conta e contato." />
+    <title>RideAnalyzer</title>
+    <style>
+        :root {
+            --bg: #07111f;
+            --bg-2: #0c1728;
+            --panel: rgba(11, 21, 36, 0.9);
+            --panel-2: rgba(16, 28, 46, 0.95);
+            --text: #eef4fb;
+            --muted: #b2c0d0;
+            --line: rgba(122, 168, 255, 0.18);
+            --accent: #67e8d1;
+            --accent-2: #7aa8ff;
+            --accent-3: #f0c56a;
+            --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            color-scheme: dark;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: "Segoe UI", Arial, sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at top left, rgba(103, 232, 209, 0.14), transparent 28%),
+                radial-gradient(circle at top right, rgba(122, 168, 255, 0.12), transparent 24%),
+                linear-gradient(180deg, var(--bg), var(--bg-2));
+        }
+
+        main {
+            width: min(1120px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 28px 0 56px;
+        }
+
+        .hero {
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: linear-gradient(180deg, rgba(12, 22, 36, 0.96), rgba(8, 16, 27, 0.96));
+            box-shadow: var(--shadow);
+            padding: 28px;
+            overflow: hidden;
+        }
+
+        .eyebrow {
+            margin: 0 0 10px;
+            color: var(--accent);
+            font-size: 0.82rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(2.3rem, 5vw, 4.2rem);
+            line-height: 1.05;
+        }
+
+        .lead {
+            max-width: 760px;
+            margin: 16px 0 0;
+            color: var(--muted);
+            font-size: 1.03rem;
+            line-height: 1.7;
+        }
+
+        .actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 14px;
+            margin-top: 24px;
+        }
+
+        .action {
+            display: block;
+            padding: 18px;
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            text-decoration: none;
+            transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+        }
+
+        .action:hover {
+            transform: translateY(-2px);
+            border-color: rgba(103, 232, 209, 0.36);
+            background: rgba(255, 255, 255, 0.06);
+        }
+
+        .action strong {
+            display: block;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+
+        .action span {
+            display: block;
+            color: var(--muted);
+            line-height: 1.5;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 16px;
+            margin-top: 18px;
+        }
+
+        .card {
+            grid-column: span 6;
+            border: 1px solid var(--line);
+            border-radius: 18px;
+            background: var(--panel);
+            box-shadow: var(--shadow);
+            padding: 22px;
+        }
+
+        .card h2 {
+            margin: 0 0 12px;
+            font-size: 1.2rem;
+        }
+
+        .card p,
+        .card li {
+            color: var(--muted);
+            line-height: 1.65;
+        }
+
+        .card ul {
+            margin: 0;
+            padding-left: 18px;
+        }
+
+        .contact {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 12px;
+            margin-top: 14px;
+        }
+
+        .contact-item {
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 14px;
+            background: var(--panel-2);
+            padding: 16px;
+        }
+
+        .contact-item span {
+            display: block;
+            color: var(--muted);
+            font-size: 0.88rem;
+        }
+
+        .contact-item strong {
+            display: block;
+            margin-top: 4px;
+            overflow-wrap: anywhere;
+        }
+
+        .footer {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 18px;
+            color: var(--muted);
+            font-size: 0.92rem;
+        }
+
+        .mini-link {
+            color: var(--accent-3);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        .mini-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 860px) {
+            .card {
+                grid-column: span 12;
+            }
+        }
+    </style>
 </head>
 <body>
-    <p>
-        Redirecionando para a
-        <a href="privacy-policy.html">Politica de Privacidade do RideAnalyzer</a>.
-    </p>
+    <main>
+        <section class="hero" aria-labelledby="title">
+            <p class="eyebrow">RideAnalyzer</p>
+            <h1 id="title">Ferramentas e informações públicas do app</h1>
+            <p class="lead">
+                Aqui você encontra a política de privacidade, a página de exclusão de conta e os
+                canais de suporte do RideAnalyzer.
+            </p>
+
+            <div class="actions" aria-label="Links principais">
+                <a class="action" href="privacy-policy.html">
+                    <strong>Política de Privacidade</strong>
+                    <span>Veja como o app coleta, usa, armazena e protege os dados do usuário.</span>
+                </a>
+                <a class="action" href="account-deletion.html">
+                    <strong>Exclusão de conta e dados</strong>
+                    <span>Saiba como solicitar a exclusão da conta e de dados específicos.</span>
+                </a>
+                <a class="action" href="mailto:leonardogsilv1@gmail.com?subject=RideAnalyzer%20-%20Suporte%20e%20privacidade">
+                    <strong>Contato de suporte</strong>
+                    <span>Fale com a equipe para dúvidas sobre privacidade e conta.</span>
+                </a>
+            </div>
+        </section>
+
+        <section class="grid" aria-label="Conteudo adicional">
+            <article class="card">
+                <h2>Resumo</h2>
+                <ul>
+                    <li>Política pública pronta para Google Play.</li>
+                    <li>Página própria para exclusão de conta e dados.</li>
+                    <li>Contato direto por e-mail para suporte e privacidade.</li>
+                </ul>
+            </article>
+
+            <article class="card">
+                <h2>Contato</h2>
+                <div class="contact">
+                    <div class="contact-item">
+                        <span>E-mail</span>
+                        <strong>leonardogsilv1@gmail.com</strong>
+                    </div>
+                    <div class="contact-item">
+                        <span>Site da política</span>
+                        <strong><a class="mini-link" href="privacy-policy.html">privacy-policy.html</a></strong>
+                    </div>
+                </div>
+            </article>
+        </section>
+
+        <div class="footer">
+            <span>RideAnalyzer</span>
+            <a class="mini-link" href="privacy-policy.html">Abrir política</a>
+        </div>
+    </main>
 </body>
 </html>
