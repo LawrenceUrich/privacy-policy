@@ -7,17 +7,19 @@
     <title>RideAnalyzer</title>
     <style>
         :root {
-            --bg: #07111f;
-            --bg-2: #0c1728;
-            --panel: rgba(11, 21, 36, 0.9);
-            --panel-2: rgba(16, 28, 46, 0.95);
+            --bg: #07101d;
+            --bg-2: #111c2b;
+            --panel: rgba(11, 19, 31, 0.88);
+            --panel-2: rgba(17, 27, 42, 0.96);
+            --panel-3: rgba(255, 255, 255, 0.04);
             --text: #eef4fb;
-            --muted: #b2c0d0;
-            --line: rgba(122, 168, 255, 0.18);
-            --accent: #67e8d1;
-            --accent-2: #7aa8ff;
-            --accent-3: #f0c56a;
-            --shadow: 0 24px 60px rgba(0, 0, 0, 0.28);
+            --muted: #afbccb;
+            --line: rgba(145, 176, 220, 0.18);
+            --line-strong: rgba(103, 232, 209, 0.24);
+            --accent: #6cf0d8;
+            --accent-2: #8fb2ff;
+            --accent-3: #f3ca73;
+            --shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
         }
 
         * {
@@ -34,8 +36,9 @@
             font-family: "Segoe UI", Arial, sans-serif;
             color: var(--text);
             background:
-                radial-gradient(circle at top left, rgba(103, 232, 209, 0.14), transparent 28%),
-                radial-gradient(circle at top right, rgba(122, 168, 255, 0.12), transparent 24%),
+                radial-gradient(circle at 12% 12%, rgba(108, 240, 216, 0.16), transparent 22%),
+                radial-gradient(circle at 88% 8%, rgba(143, 178, 255, 0.14), transparent 24%),
+                radial-gradient(circle at 70% 92%, rgba(243, 202, 115, 0.1), transparent 18%),
                 linear-gradient(180deg, var(--bg), var(--bg-2));
         }
 
@@ -46,12 +49,36 @@
         }
 
         .hero {
+            position: relative;
             border: 1px solid var(--line);
             border-radius: 18px;
-            background: linear-gradient(180deg, rgba(12, 22, 36, 0.96), rgba(8, 16, 27, 0.96));
+            background:
+                linear-gradient(135deg, rgba(255, 255, 255, 0.05), transparent 44%),
+                linear-gradient(180deg, rgba(12, 22, 36, 0.96), rgba(7, 14, 24, 0.96));
             box-shadow: var(--shadow);
-            padding: 28px;
+            padding: 30px;
             overflow: hidden;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            inset: auto -12% -28% auto;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(108, 240, 216, 0.14), rgba(108, 240, 216, 0.03) 45%, transparent 72%);
+            pointer-events: none;
+            filter: blur(2px);
+        }
+
+        .hero-grid {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: minmax(0, 1.4fr) minmax(280px, 0.9fr);
+            gap: 18px;
+            align-items: start;
         }
 
         .eyebrow {
@@ -63,17 +90,47 @@
             text-transform: uppercase;
         }
 
+        .brand-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 14px;
+        }
+
+        .chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            color: var(--muted);
+            font-size: 0.88rem;
+            line-height: 1;
+        }
+
+        .chip::before {
+            content: "";
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(108, 240, 216, 0.12);
+        }
+
         h1 {
             margin: 0;
-            font-size: clamp(2.3rem, 5vw, 4.2rem);
-            line-height: 1.05;
+            font-size: clamp(2.4rem, 5vw, 4.4rem);
+            line-height: 1.02;
+            letter-spacing: 0;
         }
 
         .lead {
             max-width: 760px;
-            margin: 16px 0 0;
+            margin: 18px 0 0;
             color: var(--muted);
-            font-size: 1.03rem;
+            font-size: 1.05rem;
             line-height: 1.7;
         }
 
@@ -81,36 +138,85 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 14px;
-            margin-top: 24px;
+            margin-top: 26px;
         }
 
         .action {
             display: block;
-            padding: 18px;
+            padding: 18px 18px 17px;
             border: 1px solid var(--line);
             border-radius: 14px;
-            background: rgba(255, 255, 255, 0.04);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.03));
             color: var(--text);
             text-decoration: none;
-            transition: transform 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+            transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease, box-shadow 0.16s ease;
         }
 
         .action:hover {
             transform: translateY(-2px);
-            border-color: rgba(103, 232, 209, 0.36);
+            border-color: var(--line-strong);
             background: rgba(255, 255, 255, 0.06);
+            box-shadow: 0 16px 34px rgba(0, 0, 0, 0.18);
         }
 
         .action strong {
             display: block;
-            font-size: 1.05rem;
-            margin-bottom: 6px;
+            font-size: 1.04rem;
+            margin-bottom: 8px;
         }
 
         .action span {
             display: block;
             color: var(--muted);
             line-height: 1.5;
+        }
+
+        .side-panel {
+            display: grid;
+            gap: 12px;
+        }
+
+        .panel {
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.025));
+            padding: 18px;
+        }
+
+        .panel h2 {
+            margin: 0 0 10px;
+            font-size: 1.05rem;
+        }
+
+        .panel p {
+            margin: 0;
+            color: var(--muted);
+            line-height: 1.6;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 16px;
+        }
+
+        .stat {
+            border: 1px solid rgba(255, 255, 255, 0.07);
+            border-radius: 14px;
+            background: var(--panel-3);
+            padding: 14px;
+        }
+
+        .stat strong {
+            display: block;
+            font-size: 1rem;
+            margin-bottom: 6px;
+        }
+
+        .stat span {
+            color: var(--muted);
+            line-height: 1.55;
+            font-size: 0.94rem;
         }
 
         .grid {
@@ -192,7 +298,20 @@
             text-decoration: underline;
         }
 
+        .section-label {
+            margin: 20px 0 10px;
+            color: var(--accent-3);
+            font-size: 0.84rem;
+            font-weight: 800;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
         @media (max-width: 860px) {
+            .hero-grid {
+                grid-template-columns: 1fr;
+            }
+
             .card {
                 grid-column: span 12;
             }
@@ -202,29 +321,68 @@
 <body>
     <main>
         <section class="hero" aria-labelledby="title">
-            <p class="eyebrow">RideAnalyzer</p>
-            <h1 id="title">Ferramentas e informações públicas do app</h1>
-            <p class="lead">
-                Aqui você encontra a política de privacidade, a página de exclusão de conta e os
-                canais de suporte do RideAnalyzer.
-            </p>
+            <div class="hero-grid">
+                <div>
+                    <p class="eyebrow">RideAnalyzer</p>
+                    <div class="brand-row" aria-label="Resumo rapido">
+                        <span class="chip">Privacidade pública</span>
+                        <span class="chip">Exclusão de conta</span>
+                        <span class="chip">Suporte direto</span>
+                    </div>
+                    <h1 id="title">Ferramentas e informações públicas do app</h1>
+                    <p class="lead">
+                        Aqui você encontra a política de privacidade, a página de exclusão de conta e os
+                        canais de suporte do RideAnalyzer. O foco é deixar tudo claro, acessível e pronto
+                        para a loja.
+                    </p>
 
-            <div class="actions" aria-label="Links principais">
-                <a class="action" href="privacy-policy.html">
-                    <strong>Política de Privacidade</strong>
-                    <span>Veja como o app coleta, usa, armazena e protege os dados do usuário.</span>
-                </a>
-                <a class="action" href="account-deletion.html">
-                    <strong>Exclusão de conta e dados</strong>
-                    <span>Saiba como solicitar a exclusão da conta e de dados específicos.</span>
-                </a>
-                <a class="action" href="mailto:leonardogsilv1@gmail.com?subject=RideAnalyzer%20-%20Suporte%20e%20privacidade">
-                    <strong>Contato de suporte</strong>
-                    <span>Fale com a equipe para dúvidas sobre privacidade e conta.</span>
-                </a>
+                    <div class="actions" aria-label="Links principais">
+                        <a class="action" href="privacy-policy.html">
+                            <strong>Política de Privacidade</strong>
+                            <span>Veja como o app coleta, usa, armazena e protege os dados do usuário.</span>
+                        </a>
+                        <a class="action" href="account-deletion.html">
+                            <strong>Exclusão de conta e dados</strong>
+                            <span>Saiba como solicitar a exclusão da conta e de dados específicos.</span>
+                        </a>
+                        <a class="action" href="mailto:leonardogsilv1@gmail.com?subject=RideAnalyzer%20-%20Suporte%20e%20privacidade">
+                            <strong>Contato de suporte</strong>
+                            <span>Fale com a equipe para dúvidas sobre privacidade e conta.</span>
+                        </a>
+                    </div>
+                </div>
+
+                <aside class="side-panel" aria-label="Painel lateral">
+                    <div class="panel">
+                        <h2>O que está disponível</h2>
+                        <p>Esta área serve como porta de entrada para os links públicos do RideAnalyzer.</p>
+                    </div>
+                    <div class="panel">
+                        <h2>Detalhes úteis</h2>
+                        <div class="stats">
+                            <div class="stat">
+                                <strong>1</strong>
+                                <span>landing page principal</span>
+                            </div>
+                            <div class="stat">
+                                <strong>2</strong>
+                                <span>páginas de política e exclusão</span>
+                            </div>
+                            <div class="stat">
+                                <strong>1</strong>
+                                <span>canal de e-mail para suporte</span>
+                            </div>
+                            <div class="stat">
+                                <strong>Play</strong>
+                                <span>links prontos para o console</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
             </div>
         </section>
 
+        <p class="section-label">Acesso rápido</p>
         <section class="grid" aria-label="Conteudo adicional">
             <article class="card">
                 <h2>Resumo</h2>
