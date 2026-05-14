@@ -7,26 +7,25 @@
     <title>RideAnalyzer</title>
     <style>
         :root {
-            --bg: #fffaf3;
-            --surface: rgba(255, 255, 255, 0.9);
-            --surface-strong: #ffffff;
-            --surface-soft: rgba(255, 111, 0, 0.06);
-            --text: #1f2328;
-            --muted: #66707b;
-            --line: rgba(31, 35, 40, 0.08);
-            --line-strong: rgba(255, 111, 0, 0.22);
-            --accent: #ff6f00;
-            --accent-2: #ff8f33;
-            --accent-dark: #d95f00;
-            --shadow: 0 18px 50px rgba(35, 31, 32, 0.08);
+            --bg: #050b18;
+            --bg-2: #0d1425;
+            --surface: rgba(22, 30, 51, 0.88);
+            --surface-2: rgba(12, 18, 30, 0.94);
+            --surface-3: rgba(255, 255, 255, 0.05);
+            --text: #f0f4ff;
+            --muted: #8f9cb1;
+            --line: rgba(103, 232, 209, 0.14);
+            --line-strong: rgba(103, 232, 209, 0.28);
+            --accent: #00d084;
+            --accent-2: #52ffc4;
+            --accent-3: #00e5ff;
+            --shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
         }
 
-        * {
-            box-sizing: border-box;
-        }
+        * { box-sizing: border-box; }
 
         html {
-            color-scheme: light;
+            color-scheme: dark;
             scroll-behavior: smooth;
         }
 
@@ -36,14 +35,13 @@
             font-family: "Segoe UI", Arial, sans-serif;
             color: var(--text);
             background:
-                radial-gradient(circle at 15% 10%, rgba(255, 143, 51, 0.14), transparent 22%),
-                radial-gradient(circle at 82% 16%, rgba(255, 111, 0, 0.1), transparent 20%),
-                linear-gradient(180deg, #fffdf8 0%, #fffaf3 48%, #fff7ef 100%);
+                radial-gradient(circle at 10% 12%, rgba(0, 208, 132, 0.16), transparent 22%),
+                radial-gradient(circle at 88% 16%, rgba(82, 255, 196, 0.12), transparent 20%),
+                radial-gradient(circle at 70% 90%, rgba(0, 229, 255, 0.08), transparent 18%),
+                linear-gradient(180deg, var(--bg), var(--bg-2));
         }
 
-        a {
-            color: inherit;
-        }
+        a { color: inherit; }
 
         .page {
             width: min(1180px, calc(100% - 32px));
@@ -55,8 +53,8 @@
             top: 0;
             z-index: 20;
             backdrop-filter: blur(16px);
-            background: rgba(255, 250, 243, 0.82);
-            border-bottom: 1px solid rgba(31, 35, 40, 0.06);
+            background: rgba(5, 11, 24, 0.72);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .topbar-inner {
@@ -76,21 +74,25 @@
             text-decoration: none;
         }
 
-        .brand-mark {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
+        .brand-badge {
+            width: 46px;
+            height: 46px;
+            border-radius: 16px;
             background:
-                linear-gradient(135deg, rgba(255, 111, 0, 0.18), rgba(255, 143, 51, 0.04)),
-                #fff;
-            border: 1px solid rgba(255, 111, 0, 0.16);
+                linear-gradient(135deg, rgba(0, 208, 132, 0.22), rgba(82, 255, 196, 0.04)),
+                rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(0, 208, 132, 0.18);
             box-shadow: var(--shadow);
             display: grid;
             place-items: center;
-            color: var(--accent);
-            font-weight: 900;
-            font-size: 1.15rem;
-            letter-spacing: -0.02em;
+            overflow: hidden;
+        }
+
+        .brand-badge img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         .brand-text {
@@ -126,7 +128,7 @@
         }
 
         .nav a:hover {
-            background: rgba(255, 111, 0, 0.08);
+            background: rgba(0, 208, 132, 0.08);
             color: var(--text);
         }
 
@@ -142,8 +144,8 @@
             gap: 6px;
             padding: 10px 12px;
             border-radius: 14px;
-            border: 1px solid rgba(31, 35, 40, 0.08);
-            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
             color: var(--muted);
             font-size: 0.9rem;
             font-weight: 700;
@@ -160,21 +162,30 @@
             text-decoration: none;
             font-weight: 800;
             letter-spacing: -0.01em;
-            transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease;
+            transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
         }
 
-        .cta:hover {
-            transform: translateY(-1px);
-        }
+        .cta:hover { transform: translateY(-1px); }
 
         .cta-primary {
-            background: linear-gradient(180deg, #ff7a14, var(--accent));
-            color: #fff;
-            box-shadow: 0 14px 28px rgba(255, 111, 0, 0.22);
+            background: linear-gradient(180deg, #11e49a, var(--accent));
+            color: #041116;
+            box-shadow: 0 16px 30px rgba(0, 208, 132, 0.2);
         }
 
         .cta-primary:hover {
-            box-shadow: 0 16px 32px rgba(255, 111, 0, 0.28);
+            box-shadow: 0 18px 36px rgba(0, 208, 132, 0.28);
+        }
+
+        .cta-secondary {
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--accent-2);
+            border-color: rgba(82, 255, 196, 0.18);
+        }
+
+        .cta-secondary:hover {
+            border-color: rgba(82, 255, 196, 0.3);
+            background: rgba(82, 255, 196, 0.06);
         }
 
         .hero {
@@ -201,9 +212,8 @@
             gap: 8px;
             padding: 10px 14px;
             border-radius: 999px;
-            background: rgba(255, 255, 255, 0.9);
-            border: 1px solid rgba(31, 35, 40, 0.08);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             color: var(--muted);
             font-size: 0.92rem;
             font-weight: 700;
@@ -214,20 +224,20 @@
             height: 8px;
             border-radius: 50%;
             background: var(--accent);
-            box-shadow: 0 0 0 4px rgba(255, 111, 0, 0.12);
+            box-shadow: 0 0 0 4px rgba(0, 208, 132, 0.12);
         }
 
         h1 {
             margin: 0;
+            max-width: 10ch;
             font-size: clamp(2.8rem, 6vw, 5.1rem);
             line-height: 0.98;
-            letter-spacing: -0.04em;
-            max-width: 10ch;
+            letter-spacing: -0.05em;
         }
 
         .hero-copy {
             margin: 18px 0 0;
-            max-width: 620px;
+            max-width: 640px;
             color: var(--muted);
             font-size: 1.08rem;
             line-height: 1.74;
@@ -240,17 +250,6 @@
             margin-top: 28px;
         }
 
-        .cta-secondary {
-            background: #fff;
-            color: var(--accent);
-            border-color: rgba(255, 111, 0, 0.22);
-        }
-
-        .cta-secondary:hover {
-            border-color: rgba(255, 111, 0, 0.34);
-            box-shadow: 0 10px 24px rgba(255, 111, 0, 0.08);
-        }
-
         .hero-note {
             margin-top: 16px;
             color: var(--muted);
@@ -261,9 +260,11 @@
             justify-self: end;
             width: min(100%, 360px);
             border-radius: 32px;
-            border: 1px solid rgba(31, 35, 40, 0.12);
-            background: linear-gradient(180deg, #1a1f25, #10151b);
-            box-shadow: 0 24px 72px rgba(0, 0, 0, 0.18);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background:
+                linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
+                rgba(11, 19, 31, 0.94);
+            box-shadow: var(--shadow);
             padding: 14px;
         }
 
@@ -271,15 +272,15 @@
             border-radius: 24px;
             overflow: hidden;
             background:
-                radial-gradient(circle at top right, rgba(255, 143, 51, 0.22), transparent 28%),
-                linear-gradient(180deg, #fffdf9, #fff5eb);
+                radial-gradient(circle at top right, rgba(0, 208, 132, 0.16), transparent 28%),
+                linear-gradient(180deg, #08101d, #0d1425);
             min-height: 620px;
             display: grid;
-            grid-template-rows: auto 1fr auto;
+            grid-template-rows: auto auto 1fr auto;
         }
 
         .screen-top {
-            padding: 16px 16px 12px;
+            padding: 16px 16px 10px;
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -293,11 +294,11 @@
         }
 
         .mini-logo {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #ff7a14, #ffb36b);
-            color: #fff;
+            background: linear-gradient(135deg, #00d084, #52ffc4);
+            color: #041116;
             display: grid;
             place-items: center;
             font-weight: 900;
@@ -310,7 +311,7 @@
         }
 
         .mini-title strong {
-            font-size: 0.95rem;
+            font-size: 0.96rem;
         }
 
         .mini-title span {
@@ -321,28 +322,24 @@
         .status-pill {
             padding: 8px 10px;
             border-radius: 999px;
-            background: rgba(255, 111, 0, 0.08);
-            color: var(--accent);
+            background: rgba(0, 208, 132, 0.14);
+            color: var(--accent-2);
             font-size: 0.8rem;
             font-weight: 800;
         }
 
-        .screen-content {
-            display: grid;
-            gap: 14px;
-            padding: 0 16px 16px;
-            align-content: start;
+        .screen-hero {
+            padding: 0 16px 12px;
         }
 
-        .preview-card {
+        .hero-card {
             border-radius: 20px;
-            border: 1px solid rgba(31, 35, 40, 0.08);
-            background: rgba(255, 255, 255, 0.9);
-            box-shadow: 0 14px 30px rgba(35, 31, 32, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(255, 255, 255, 0.04);
             padding: 14px;
         }
 
-        .preview-head {
+        .hero-card-head {
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -350,12 +347,12 @@
             margin-bottom: 12px;
         }
 
-        .preview-head strong {
+        .hero-card-head strong {
             font-size: 0.96rem;
         }
 
-        .preview-head span {
-            color: var(--accent);
+        .hero-card-head span {
+            color: var(--accent-2);
             font-size: 0.82rem;
             font-weight: 800;
         }
@@ -368,8 +365,8 @@
 
         .metric {
             border-radius: 14px;
-            border: 1px solid rgba(31, 35, 40, 0.08);
-            background: #fff;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            background: rgba(7, 11, 20, 0.92);
             padding: 10px 8px;
             text-align: center;
         }
@@ -390,6 +387,7 @@
         .checklist {
             display: grid;
             gap: 10px;
+            padding: 0 16px;
         }
 
         .check {
@@ -398,15 +396,15 @@
             gap: 10px;
             padding: 12px;
             border-radius: 16px;
-            background: rgba(255, 255, 255, 0.78);
-            border: 1px solid rgba(31, 35, 40, 0.06);
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
         }
 
         .check-icon {
             width: 22px;
             height: 22px;
             border-radius: 50%;
-            background: rgba(255, 111, 0, 0.12);
+            background: rgba(0, 208, 132, 0.16);
             color: var(--accent);
             display: grid;
             place-items: center;
@@ -434,13 +432,13 @@
         .bottom-banner {
             border-radius: 18px;
             padding: 12px 14px;
-            background: linear-gradient(180deg, var(--accent), #ff7b15);
-            color: #fff;
+            background: linear-gradient(180deg, rgba(0, 208, 132, 0.98), rgba(0, 183, 116, 0.98));
+            color: #041116;
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 12px;
-            box-shadow: 0 14px 28px rgba(255, 111, 0, 0.22);
+            box-shadow: 0 16px 30px rgba(0, 208, 132, 0.18);
         }
 
         .bottom-banner strong {
@@ -451,7 +449,7 @@
         .bottom-banner span {
             display: block;
             font-size: 0.8rem;
-            opacity: 0.9;
+            opacity: 0.86;
             margin-top: 2px;
         }
 
@@ -495,9 +493,9 @@
             border-radius: 14px;
             display: grid;
             place-items: center;
-            background: rgba(255, 111, 0, 0.1);
+            background: rgba(0, 208, 132, 0.12);
             color: var(--accent);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-bottom: 14px;
         }
 
@@ -554,9 +552,9 @@
         }
 
         .contact-item {
-            border: 1px solid rgba(31, 35, 40, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.06);
             border-radius: 16px;
-            background: #fff;
+            background: rgba(255, 255, 255, 0.04);
             padding: 16px;
         }
 
@@ -589,7 +587,7 @@
         }
 
         .footer-links a {
-            color: var(--accent-dark);
+            color: var(--accent-2);
             text-decoration: none;
             font-weight: 800;
         }
@@ -604,21 +602,13 @@
         }
 
         .muted-link:hover {
-            color: var(--accent-dark);
+            color: var(--accent-2);
         }
 
         @media (max-width: 980px) {
-            .hero-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .phone-shell {
-                justify-self: start;
-            }
-
-            .feature-grid {
-                grid-template-columns: 1fr;
-            }
+            .hero-grid { grid-template-columns: 1fr; }
+            .phone-shell { justify-self: start; }
+            .feature-grid { grid-template-columns: 1fr; }
         }
 
         @media (max-width: 760px) {
@@ -646,6 +636,10 @@
             .phone-screen {
                 min-height: 560px;
             }
+
+            h1 {
+                font-size: clamp(2.4rem, 11vw, 4.2rem);
+            }
         }
     </style>
 </head>
@@ -653,7 +647,9 @@
     <header class="topbar">
         <div class="topbar-inner">
             <a class="brand" href="#inicio" aria-label="RideAnalyzer">
-                <div class="brand-mark">RA</div>
+                <div class="brand-badge">
+                    <img src="icon-app.png" alt="" aria-hidden="true" />
+                </div>
                 <div class="brand-text">
                     <strong>RideAnalyzer</strong>
                     <span>Ferramenta para motoristas</span>
@@ -668,7 +664,7 @@
 
             <div class="top-actions">
                 <span class="lang">PT BR</span>
-                <a class="cta cta-primary" href="account-deletion.html">Abrir suporte</a>
+                <a class="cta cta-primary" href="privacy-policy.html">Política</a>
             </div>
         </div>
     </header>
@@ -683,20 +679,20 @@
                         <span class="kicker"><span class="kicker-dot"></span>Suporte direto</span>
                     </div>
 
-                    <h1>Analise corridas com clareza e tome decisões mais seguras</h1>
+                    <h1>Analise corridas com clareza e mantenha suas informações organizadas</h1>
                     <p class="hero-copy">
-                        O RideAnalyzer acompanha o motorista na leitura de ofertas, organização do histórico
-                        e consulta de informações públicas do app. A experiência foi pensada para ser direta,
-                        limpa e fácil de acessar em qualquer momento.
+                        O RideAnalyzer ajuda motoristas a ler ofertas, acompanhar histórico e acessar as
+                        páginas públicas de política e exclusão. Tudo no mesmo espaço, com um fluxo limpo e
+                        sem promessa inventada.
                     </p>
 
                     <div class="hero-actions">
-                        <a class="cta cta-primary" href="privacy-policy.html">Política de Privacidade</a>
-                        <a class="cta cta-secondary" href="account-deletion.html">Exclusão de conta e dados</a>
+                        <a class="cta cta-primary" href="privacy-policy.html">Abrir política</a>
+                        <a class="cta cta-secondary" href="account-deletion.html">Exclusão de conta</a>
                     </div>
 
                     <p class="hero-note">
-                        Links públicos prontos para o Google Play e para o suporte do app.
+                        Página pública pensada para a loja, o suporte e a navegação do usuário.
                     </p>
                 </div>
 
@@ -710,52 +706,52 @@
                                     <span>Resumo visual da análise</span>
                                 </div>
                             </div>
-                            <div class="status-pill">Ativo</div>
+                            <div class="status-pill">Esmeralda</div>
                         </div>
 
-                        <div class="screen-content">
-                            <div class="preview-card">
-                                <div class="preview-head">
+                        <div class="screen-hero">
+                            <div class="hero-card">
+                                <div class="hero-card-head">
                                     <strong>Leitura da oferta</strong>
-                                    <span>Sem números inventados</span>
+                                    <span>Sem números fictícios</span>
                                 </div>
                                 <div class="metric-grid" aria-label="Campos do app">
                                     <div class="metric">
                                         <span>Valor</span>
-                                        <strong>--</strong>
+                                        <strong>—</strong>
                                     </div>
                                     <div class="metric">
                                         <span>Distância</span>
-                                        <strong>--</strong>
+                                        <strong>—</strong>
                                     </div>
                                     <div class="metric">
                                         <span>Tempo</span>
-                                        <strong>--</strong>
+                                        <strong>—</strong>
                                     </div>
                                 </div>
                             </div>
+                        </div>
 
-                            <div class="checklist">
-                                <div class="check">
-                                    <div class="check-icon">✓</div>
-                                    <div>
-                                        <strong>Histórico organizado</strong>
-                                        <span>Suporte para consulta de corridas analisadas e respostas rápidas.</span>
-                                    </div>
+                        <div class="checklist">
+                            <div class="check">
+                                <div class="check-icon">✓</div>
+                                <div>
+                                    <strong>Histórico organizado</strong>
+                                    <span>Corridas analisadas ficam disponíveis para consulta no app.</span>
                                 </div>
-                                <div class="check">
-                                    <div class="check-icon">✓</div>
-                                    <div>
-                                        <strong>Privacidade pública</strong>
-                                        <span>Política e exclusão de conta disponíveis em páginas separadas.</span>
-                                    </div>
+                            </div>
+                            <div class="check">
+                                <div class="check-icon">✓</div>
+                                <div>
+                                    <strong>Leitura por acessibilidade e OCR</strong>
+                                    <span>O app combina leitura da tela e OCR local quando necessário.</span>
                                 </div>
-                                <div class="check">
-                                    <div class="check-icon">✓</div>
-                                    <div>
-                                        <strong>Acesso direto ao suporte</strong>
-                                        <span>Contato por e-mail para dúvidas, privacidade e exclusão.</span>
-                                    </div>
+                            </div>
+                            <div class="check">
+                                <div class="check-icon">✓</div>
+                                <div>
+                                    <strong>Política e exclusão públicas</strong>
+                                    <span>Documentos separados para privacidade e remoção de dados.</span>
                                 </div>
                             </div>
                         </div>
@@ -782,17 +778,17 @@
             <article class="feature">
                 <div class="feature-icon">↗</div>
                 <strong>Foco no motorista</strong>
-                <p>Comunica o propósito do app sem exagero de marketing nem promessa inventada.</p>
+                <p>O texto apresenta o app como uma ferramenta de análise e organização, sem inflar resultados.</p>
             </article>
             <article class="feature">
                 <div class="feature-icon">⚑</div>
                 <strong>Links essenciais à vista</strong>
-                <p>Acesso rápido para política, exclusão de dados e contato com a equipe.</p>
+                <p>Política, exclusão de conta e suporte ficam acessíveis logo na primeira dobra da página.</p>
             </article>
             <article class="feature">
                 <div class="feature-icon">◌</div>
-                <strong>Visual de produto real</strong>
-                <p>Layout com navegação, bloco de destaque e prévia do app, sem depender de números falsos.</p>
+                <strong>Visual em verde do app</strong>
+                <p>A paleta acompanha a identidade esmeralda do RideAnalyzer, com fundo escuro e contraste alto.</p>
             </article>
         </section>
 
