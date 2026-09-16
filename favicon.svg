@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="RideAnalyzer">
+  <defs>
+    <linearGradient id="g" x1="8" y1="8" x2="56" y2="56" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#75f2c1"/>
+      <stop offset="1" stop-color="#24c884"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="18" fill="url(#g)"/>
+  <path d="M16 44V20h10.2c6.4 0 10.4 3.3 10.4 8.5 0 3.4-1.8 6-4.8 7.3L38 44h-7.5l-5.1-7.1h-2.9V44H16Zm6.5-12.4h3.3c2.7 0 4.2-1 4.2-3s-1.5-3-4.2-3h-3.3v6Z" fill="#062016"/>
+  <path d="m36 44 8.9-24H52l8.8 24h-7l-1.5-4.7h-8.2L42.6 44H36Zm9.7-10.1h5l-2.5-7.8-2.5 7.8Z" fill="#062016"/>
+</svg>

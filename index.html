@@ -3,856 +3,132 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="RideAnalyzer: veja a politica de privacidade, solicite exclusao de conta e acesse os canais oficiais do app." />
-    <title>RideAnalyzer</title>
-    <style>
-        :root {
-            --bg: #050b18;
-            --bg-2: #0d1425;
-            --surface: rgba(22, 30, 51, 0.88);
-            --surface-2: rgba(12, 18, 30, 0.94);
-            --surface-3: rgba(255, 255, 255, 0.05);
-            --text: #f0f4ff;
-            --muted: #8f9cb1;
-            --line: rgba(103, 232, 209, 0.14);
-            --line-strong: rgba(103, 232, 209, 0.28);
-            --accent: #00d084;
-            --accent-2: #52ffc4;
-            --accent-3: #00e5ff;
-            --shadow: 0 28px 80px rgba(0, 0, 0, 0.34);
-        }
-
-        * { box-sizing: border-box; }
-
-        html {
-            color-scheme: dark;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            margin: 0;
-            min-height: 100vh;
-            font-family: "Segoe UI", Arial, sans-serif;
-            color: var(--text);
-            background:
-                radial-gradient(circle at 10% 12%, rgba(0, 208, 132, 0.16), transparent 22%),
-                radial-gradient(circle at 88% 16%, rgba(82, 255, 196, 0.12), transparent 20%),
-                radial-gradient(circle at 70% 90%, rgba(0, 229, 255, 0.08), transparent 18%),
-                linear-gradient(180deg, var(--bg), var(--bg-2));
-        }
-
-        a { color: inherit; }
-
-        .page {
-            width: min(1180px, calc(100% - 32px));
-            margin: 0 auto;
-        }
-
-        .topbar {
-            position: sticky;
-            top: 0;
-            z-index: 20;
-            backdrop-filter: blur(16px);
-            background: rgba(5, 11, 24, 0.72);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .topbar-inner {
-            width: min(1180px, calc(100% - 32px));
-            margin: 0 auto;
-            min-height: 84px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 20px;
-        }
-
-        .brand {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            text-decoration: none;
-        }
-
-        .brand-badge {
-            width: 46px;
-            height: 46px;
-            border-radius: 16px;
-            background:
-                linear-gradient(135deg, rgba(0, 208, 132, 0.22), rgba(82, 255, 196, 0.04)),
-                rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(0, 208, 132, 0.18);
-            box-shadow: var(--shadow);
-            display: grid;
-            place-items: center;
-            overflow: hidden;
-        }
-
-        .brand-badge img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        .brand-text {
-            display: grid;
-            gap: 2px;
-        }
-
-        .brand-text strong {
-            font-size: 1rem;
-            letter-spacing: -0.01em;
-        }
-
-        .brand-text span {
-            font-size: 0.82rem;
-            color: var(--muted);
-        }
-
-        .nav {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .nav a {
-            padding: 10px 12px;
-            border-radius: 999px;
-            text-decoration: none;
-            color: var(--muted);
-            font-weight: 700;
-            font-size: 0.95rem;
-        }
-
-        .nav a:hover {
-            background: rgba(0, 208, 132, 0.08);
-            color: var(--text);
-        }
-
-        .top-actions {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .lang {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 10px 12px;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
-            color: var(--muted);
-            font-size: 0.9rem;
-            font-weight: 700;
-        }
-
-        .cta {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 48px;
-            padding: 0 18px;
-            border-radius: 16px;
-            border: 1px solid transparent;
-            text-decoration: none;
-            font-weight: 800;
-            letter-spacing: -0.01em;
-            transition: transform 0.16s ease, box-shadow 0.16s ease, border-color 0.16s ease, background 0.16s ease;
-        }
-
-        .cta:hover { transform: translateY(-1px); }
-
-        .cta-primary {
-            background: linear-gradient(180deg, #11e49a, var(--accent));
-            color: #041116;
-            box-shadow: 0 16px 30px rgba(0, 208, 132, 0.2);
-        }
-
-        .cta-primary:hover {
-            box-shadow: 0 18px 36px rgba(0, 208, 132, 0.28);
-        }
-
-        .cta-secondary {
-            background: rgba(255, 255, 255, 0.03);
-            color: var(--accent-2);
-            border-color: rgba(82, 255, 196, 0.18);
-        }
-
-        .cta-secondary:hover {
-            border-color: rgba(82, 255, 196, 0.3);
-            background: rgba(82, 255, 196, 0.06);
-        }
-
-        .hero {
-            padding: 42px 0 18px;
-        }
-
-        .hero-grid {
-            display: grid;
-            grid-template-columns: minmax(0, 1.08fr) minmax(320px, 0.92fr);
-            gap: 34px;
-            align-items: center;
-        }
-
-        .kicker-row {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 18px;
-        }
-
-        .kicker {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            padding: 10px 14px;
-            border-radius: 999px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            color: var(--muted);
-            font-size: 0.92rem;
-            font-weight: 700;
-        }
-
-        .kicker-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--accent);
-            box-shadow: 0 0 0 4px rgba(0, 208, 132, 0.12);
-        }
-
-        h1 {
-            margin: 0;
-            max-width: 10ch;
-            font-size: clamp(2.8rem, 6vw, 5.1rem);
-            line-height: 0.98;
-            letter-spacing: -0.05em;
-        }
-
-        .hero-copy {
-            margin: 18px 0 0;
-            max-width: 640px;
-            color: var(--muted);
-            font-size: 1.08rem;
-            line-height: 1.74;
-        }
-
-        .hero-actions {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 28px;
-        }
-
-        .hero-note {
-            margin-top: 16px;
-            color: var(--muted);
-            font-size: 0.92rem;
-        }
-
-        .phone-shell {
-            justify-self: end;
-            width: min(100%, 360px);
-            border-radius: 32px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background:
-                linear-gradient(180deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)),
-                rgba(11, 19, 31, 0.94);
-            box-shadow: var(--shadow);
-            padding: 14px;
-        }
-
-        .phone-screen {
-            border-radius: 24px;
-            overflow: hidden;
-            background:
-                radial-gradient(circle at top right, rgba(0, 208, 132, 0.16), transparent 28%),
-                linear-gradient(180deg, #08101d, #0d1425);
-            min-height: 620px;
-            display: grid;
-            grid-template-rows: auto auto 1fr auto;
-        }
-
-        .screen-top {
-            padding: 16px 16px 10px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-        }
-
-        .mini-brand {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .mini-logo {
-            width: 36px;
-            height: 36px;
-            border-radius: 12px;
-            background: linear-gradient(135deg, #00d084, #52ffc4);
-            color: #041116;
-            display: grid;
-            place-items: center;
-            font-weight: 900;
-            font-size: 0.95rem;
-        }
-
-        .mini-title {
-            display: grid;
-            gap: 2px;
-        }
-
-        .mini-title strong {
-            font-size: 0.96rem;
-        }
-
-        .mini-title span {
-            font-size: 0.78rem;
-            color: var(--muted);
-        }
-
-        .status-pill {
-            padding: 8px 10px;
-            border-radius: 999px;
-            background: rgba(0, 208, 132, 0.14);
-            color: var(--accent-2);
-            font-size: 0.8rem;
-            font-weight: 800;
-        }
-
-        .screen-hero {
-            padding: 0 16px 12px;
-        }
-
-        .hero-card {
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(255, 255, 255, 0.04);
-            padding: 14px;
-        }
-
-        .hero-card-head {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 10px;
-            margin-bottom: 12px;
-        }
-
-        .hero-card-head strong {
-            font-size: 0.96rem;
-        }
-
-        .hero-card-head span {
-            color: var(--accent-2);
-            font-size: 0.82rem;
-            font-weight: 800;
-        }
-
-        .metric-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 8px;
-        }
-
-        .metric {
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            background: rgba(7, 11, 20, 0.92);
-            padding: 10px 8px;
-            text-align: center;
-        }
-
-        .metric span {
-            display: block;
-            font-size: 0.76rem;
-            color: var(--muted);
-            margin-bottom: 5px;
-        }
-
-        .metric strong {
-            display: block;
-            font-size: 0.94rem;
-            letter-spacing: -0.01em;
-        }
-
-        .checklist {
-            display: grid;
-            gap: 10px;
-            padding: 0 16px;
-        }
-
-        .check {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            padding: 12px;
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.04);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-        }
-
-        .check-icon {
-            width: 22px;
-            height: 22px;
-            border-radius: 50%;
-            background: rgba(0, 208, 132, 0.16);
-            color: var(--accent);
-            display: grid;
-            place-items: center;
-            font-weight: 900;
-            flex: 0 0 auto;
-        }
-
-        .check strong {
-            display: block;
-            font-size: 0.92rem;
-            margin-bottom: 2px;
-        }
-
-        .check span {
-            display: block;
-            font-size: 0.8rem;
-            color: var(--muted);
-            line-height: 1.4;
-        }
-
-        .screen-bottom {
-            padding: 0 16px 16px;
-        }
-
-        .bottom-banner {
-            border-radius: 18px;
-            padding: 12px 14px;
-            background: linear-gradient(180deg, rgba(0, 208, 132, 0.98), rgba(0, 183, 116, 0.98));
-            color: #041116;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            box-shadow: 0 16px 30px rgba(0, 208, 132, 0.18);
-        }
-
-        .bottom-banner strong {
-            display: block;
-            font-size: 0.92rem;
-        }
-
-        .bottom-banner span {
-            display: block;
-            font-size: 0.8rem;
-            opacity: 0.86;
-            margin-top: 2px;
-        }
-
-        .section-title {
-            margin: 42px 0 14px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-
-        .section-title h2 {
-            margin: 0;
-            font-size: 1.45rem;
-            letter-spacing: -0.03em;
-        }
-
-        .section-title p {
-            margin: 0;
-            color: var(--muted);
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(3, minmax(0, 1fr));
-            gap: 16px;
-        }
-
-        .feature {
-            border: 1px solid var(--line);
-            background: var(--surface);
-            border-radius: 20px;
-            padding: 18px;
-            box-shadow: var(--shadow);
-        }
-
-        .feature-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 14px;
-            display: grid;
-            place-items: center;
-            background: rgba(0, 208, 132, 0.12);
-            color: var(--accent);
-            font-size: 1.1rem;
-            margin-bottom: 14px;
-        }
-
-        .feature strong {
-            display: block;
-            font-size: 1.04rem;
-            margin-bottom: 8px;
-        }
-
-        .feature p {
-            margin: 0;
-            color: var(--muted);
-            line-height: 1.65;
-        }
-
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            gap: 16px;
-            margin-top: 18px;
-        }
-
-        .card {
-            grid-column: span 6;
-            border: 1px solid var(--line);
-            border-radius: 20px;
-            background: var(--surface);
-            box-shadow: var(--shadow);
-            padding: 22px;
-        }
-
-        .card h3 {
-            margin: 0 0 10px;
-            font-size: 1.15rem;
-            letter-spacing: -0.02em;
-        }
-
-        .card p,
-        .card li {
-            color: var(--muted);
-            line-height: 1.7;
-        }
-
-        .card ul {
-            margin: 0;
-            padding-left: 18px;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 12px;
-            margin-top: 14px;
-        }
-
-        .contact-item {
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 16px;
-            background: rgba(255, 255, 255, 0.04);
-            padding: 16px;
-        }
-
-        .contact-item span {
-            display: block;
-            color: var(--muted);
-            font-size: 0.84rem;
-        }
-
-        .contact-item strong {
-            display: block;
-            margin-top: 5px;
-            overflow-wrap: anywhere;
-        }
-
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            gap: 12px;
-            flex-wrap: wrap;
-            margin: 26px 0 12px;
-            color: var(--muted);
-            font-size: 0.92rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 14px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: var(--accent-2);
-            text-decoration: none;
-            font-weight: 800;
-        }
-
-        .footer-links a:hover {
-            text-decoration: underline;
-        }
-
-        .muted-link {
-            color: var(--muted);
-            text-decoration: none;
-        }
-
-        .muted-link:hover {
-            color: var(--accent-2);
-        }
-
-        @media (max-width: 980px) {
-            .hero-grid { grid-template-columns: 1fr; }
-            .phone-shell { justify-self: start; }
-            .feature-grid { grid-template-columns: 1fr; }
-        }
-
-        @media (max-width: 760px) {
-            .topbar-inner {
-                min-height: auto;
-                padding: 14px 0;
-                align-items: flex-start;
-                flex-direction: column;
-            }
-
-            .nav {
-                justify-content: flex-start;
-            }
-
-            .top-actions {
-                width: 100%;
-                justify-content: flex-start;
-                flex-wrap: wrap;
-            }
-
-            .card {
-                grid-column: span 12;
-            }
-
-            .phone-screen {
-                min-height: 560px;
-            }
-
-            h1 {
-                font-size: clamp(2.4rem, 11vw, 4.2rem);
-            }
-        }
-    </style>
+    <meta name="description" content="RideAnalyzer ajuda motoristas a analisar ofertas, entender custos, organizar corridas e tomar decisões com mais clareza." />
+    <meta name="theme-color" content="#06100b" />
+    <meta property="og:title" content="RideAnalyzer — clareza para decidir melhor" />
+    <meta property="og:description" content="Análise de ofertas, custos, histórico e desempenho para quem vive de corrida." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://lawrenceurich.github.io/privacy-policy/" />
+    <link rel="canonical" href="https://lawrenceurich.github.io/privacy-policy/" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>RideAnalyzer — decisões melhores em cada corrida</title>
 </head>
 <body>
-    <header class="topbar">
-        <div class="topbar-inner">
-            <a class="brand" href="#inicio" aria-label="RideAnalyzer">
-                <div class="brand-badge">
-                    <img src="icon-app.png" alt="" aria-hidden="true" />
-                </div>
-                <div class="brand-text">
-                    <strong>RideAnalyzer</strong>
-                    <span>Feito para motoristas</span>
-                </div>
+    <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
+    <header class="site-header">
+        <div class="container header-inner">
+            <a class="brand" href="index.html" aria-label="RideAnalyzer, página inicial">
+                <span class="brand-mark" aria-hidden="true">RA</span>
+                <span class="brand-copy"><strong>RideAnalyzer</strong><span>Decida com seus próprios números</span></span>
             </a>
-
-            <nav class="nav" aria-label="Navegacao principal">
-                <a href="#funcionalidades">Funcionalidades</a>
-                <a href="#seguranca">Privacidade</a>
-                <a href="#ajuda">Ajuda</a>
+            <nav class="site-nav" aria-label="Navegação principal">
+                <a href="#como-funciona">Como funciona</a><a href="#recursos">Recursos</a><a href="#privacidade">Privacidade</a><a href="#duvidas">Dúvidas</a>
             </nav>
-
-            <div class="top-actions">
-                <span class="lang">PT BR</span>
-                <a class="cta cta-primary" href="privacy-policy.html">Política</a>
-            </div>
+            <a class="button button-secondary header-cta" href="privacy-policy.html">Privacidade</a>
         </div>
     </header>
 
-    <main id="inicio" class="page">
+    <main id="conteudo">
         <section class="hero">
-            <div class="hero-grid">
+            <div class="container hero-grid">
                 <div>
-                    <div class="kicker-row" aria-label="Resumo rapido">
-                        <span class="kicker"><span class="kicker-dot"></span>Privacidade pública</span>
-                        <span class="kicker"><span class="kicker-dot"></span>Exclusão de conta</span>
-                        <span class="kicker"><span class="kicker-dot"></span>Suporte direto</span>
-                    </div>
-
-                    <h1>Veja suas corridas com mais clareza e mantenha tudo em ordem</h1>
-                    <p class="hero-copy">
-                        O RideAnalyzer ajuda o motorista a entender melhor as ofertas, acompanhar o histórico
-                        e encontrar rápido a política de privacidade e a página de exclusão.
-                    </p>
-
+                    <p class="eyebrow">Feito para quem está na rua</p>
+                    <h1>Mais clareza antes de <span class="gradient-text">aceitar a próxima corrida.</span></h1>
+                    <p class="lead">O RideAnalyzer transforma os dados da oferta em uma leitura direta de valor por km, lucro estimado e tempo — usando os custos e critérios definidos por você.</p>
                     <div class="hero-actions">
-                        <a class="cta cta-primary" href="privacy-policy.html">Ler política</a>
-                        <a class="cta cta-secondary" href="account-deletion.html">Exclusão de conta</a>
+                        <a class="button button-primary" href="#como-funciona">Conhecer o app <span aria-hidden="true">→</span></a>
+                        <a class="button button-secondary" href="privacy-policy.html">Como seus dados são tratados</a>
                     </div>
-
-                    <p class="hero-note">
-                        Página pública pensada para a loja, o suporte e para quem quer achar tudo sem perder tempo.
-                    </p>
+                    <div class="trust-row" aria-label="Compromissos do RideAnalyzer">
+                        <span class="trust-chip">Decisão sempre do motorista</span><span class="trust-chip">OCR processado no aparelho</span><span class="trust-chip">Sem anúncios</span>
+                    </div>
                 </div>
 
-                <div class="phone-shell" aria-label="Prévia visual do app">
-                    <div class="phone-screen">
-                        <div class="screen-top">
-                            <div class="mini-brand">
-                                <div class="mini-logo">RA</div>
-                                <div class="mini-title">
-                                    <strong>Painel do motorista</strong>
-                                    <span>Um resumo simples do app</span>
-                                </div>
+                <div class="product-preview" aria-label="Exemplo visual de uma análise de oferta">
+                    <div class="preview-window">
+                        <div class="preview-top"><strong>Oferta analisada</strong><span class="online">Exemplo</span></div>
+                        <div class="offer">
+                            <div class="offer-head">
+                                <div><span>Valor da corrida</span><strong>R$ 24,00</strong></div>
+                                <div class="offer-rate"><span>Valor bruto por km</span><strong>R$ 2,00/km</strong></div>
                             </div>
-                            <div class="status-pill">Esmeralda</div>
+                            <div class="metric-grid">
+                                <div class="metric"><span>Distância total</span><strong>12 km</strong></div>
+                                <div class="metric"><span>Tempo estimado</span><strong>35 min</strong></div>
+                                <div class="metric"><span>Lucro estimado</span><strong style="color:var(--accent)">R$ 17,40</strong></div>
+                            </div>
+                            <div class="verdict"><span class="verdict-icon" aria-hidden="true">✓</span><div><strong>Dentro dos seus critérios</strong><span>Custos e limites considerados na análise.</span></div></div>
                         </div>
-
-                        <div class="screen-hero">
-                            <div class="hero-card">
-                                <div class="hero-card-head">
-                                    <strong>Leitura da oferta</strong>
-                                    <span>Exemplo visual</span>
-                                </div>
-                                <div class="metric-grid" aria-label="Campos do app">
-                                    <div class="metric">
-                                        <span>Valor da corrida</span>
-                                        <strong>—</strong>
-                                    </div>
-                                    <div class="metric">
-                                        <span>Distância</span>
-                                        <strong>—</strong>
-                                    </div>
-                                    <div class="metric">
-                                        <span>Tempo</span>
-                                        <strong>—</strong>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="checklist">
-                            <div class="check">
-                                <div class="check-icon">✓</div>
-                                <div>
-                                        <strong>Histórico organizado</strong>
-                                        <span>Você pode rever corridas analisadas com mais facilidade.</span>
-                                </div>
-                            </div>
-                            <div class="check">
-                                <div class="check-icon">✓</div>
-                                <div>
-                                        <strong>Ajuda na leitura</strong>
-                                        <span>O app usa o que o celular mostra para facilitar a conferência.</span>
-                                </div>
-                            </div>
-                            <div class="check">
-                                <div class="check-icon">✓</div>
-                                <div>
-                                        <strong>Política e exclusão claras</strong>
-                                        <span>As páginas públicas ficam separadas e fáceis de abrir.</span>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="screen-bottom">
-                            <div class="bottom-banner">
-                                <div>
-                                    <strong>RideAnalyzer</strong>
-                                    <span>Entrada pública para a loja e o suporte</span>
-                                </div>
-                                <span aria-hidden="true">↗</span>
-                            </div>
-                        </div>
+                        <p class="preview-note">Valores ilustrativos. O RideAnalyzer não aceita nem recusa corridas sozinho.</p>
                     </div>
                 </div>
             </div>
         </section>
 
-        <div id="funcionalidades" class="section-title">
-            <h2>O que você encontra aqui</h2>
-            <p>Os links públicos mais importantes do RideAnalyzer.</p>
-        </div>
-        <section class="feature-grid" aria-label="Destaques">
-            <article class="feature">
-                <div class="feature-icon">↗</div>
-                <strong>Foco no motorista</strong>
-                <p>A página fala com quem usa o app no dia a dia, de um jeito direto e leve.</p>
-            </article>
-            <article class="feature">
-                <div class="feature-icon">⚑</div>
-                <strong>Links essenciais à vista</strong>
-                <p>Política, exclusão de conta e suporte ficam fáceis de achar logo de cara.</p>
-            </article>
-            <article class="feature">
-                <div class="feature-icon">◌</div>
-                <strong>Visual em verde do app</strong>
-                <p>A identidade segue a cara do app, com verde esmeralda, fundo escuro e boa leitura.</p>
-            </article>
-        </section>
-
-        <div id="seguranca" class="section-title">
-            <h2>Documentos públicos</h2>
-            <p>As páginas oficiais usadas na loja e no suporte.</p>
-        </div>
-        <section class="content-grid" aria-label="Conteudo principal">
-            <article class="card">
-                <h3>Política de Privacidade</h3>
-                <p>
-                    Explica de forma direta como o RideAnalyzer lida com dados de perfil, sessão e histórico.
-                    É a página que você informa no Google Play.
-                </p>
-                <ul>
-                    <li>Coleta e uso de dados</li>
-                    <li>Armazenamento local e remoto</li>
-                    <li>Permissões sensíveis e contato</li>
-                </ul>
-            </article>
-
-            <article class="card">
-                <h3>Exclusão de conta e dados</h3>
-                <p>
-                    Página própria para pedir exclusão da conta ou de dados específicos, sem precisar
-                    ficar caçando opção escondida no app.
-                </p>
-                <ul>
-                    <li>Exclusão dentro do app</li>
-                    <li>Solicitação por e-mail</li>
-                    <li>Dados removidos e retenção mínima</li>
-                </ul>
-            </article>
-        </section>
-
-        <div id="ajuda" class="section-title">
-            <h2>Contato e suporte</h2>
-            <p>Um canal simples para dúvidas sobre privacidade e conta.</p>
-        </div>
-        <section class="card">
-            <h3>Fale com a equipe</h3>
-            <div class="contact-grid">
-                <div class="contact-item">
-                    <span>E-mail</span>
-                    <strong>leonardogsilv1@gmail.com</strong>
-                </div>
-                <div class="contact-item">
-                    <span>Política</span>
-                    <strong><a class="muted-link" href="privacy-policy.html">privacy-policy.html</a></strong>
-                </div>
-                <div class="contact-item">
-                    <span>Exclusão</span>
-                    <strong><a class="muted-link" href="account-deletion.html">account-deletion.html</a></strong>
+        <section class="section" id="como-funciona">
+            <div class="container">
+                <div class="section-heading"><p class="eyebrow">Simples por escolha</p><h2>Da oferta à decisão em três passos.</h2><p>O app organiza a informação que costuma chegar rápido demais, sem tirar o controle das suas mãos.</p></div>
+                <div class="grid-3">
+                    <article class="card"><span class="step-number">PASSO 01</span><div class="step-line"></div><h3>Você configura seus números</h3><p>Informe veículo, custos, valor mínimo, distância e tempo que fazem sentido para sua rotina.</p></article>
+                    <article class="card"><span class="step-number">PASSO 02</span><div class="step-line"></div><h3>O app lê a oferta</h3><p>Com sua autorização, identifica os dados visíveis da oferta da 99 e usa captura local somente quando necessário.</p></article>
+                    <article class="card"><span class="step-number">PASSO 03</span><div class="step-line"></div><h3>Você recebe contexto</h3><p>O overlay mostra a análise configurada por você. Aceitar, recusar ou ignorar continua sendo uma decisão humana.</p></article>
                 </div>
             </div>
         </section>
 
-        <div class="footer">
-            <span>RideAnalyzer</span>
-            <div class="footer-links">
-                <a href="privacy-policy.html">Política</a>
-                <a href="account-deletion.html">Exclusão</a>
-                <a href="mailto:leonardogsilv1@gmail.com?subject=RideAnalyzer%20-%20Suporte%20e%20privacidade">Suporte</a>
+        <section class="section" id="recursos">
+            <div class="container">
+                <div class="section-heading"><p class="eyebrow">Visão completa</p><h2>Um copiloto para a parte que realmente pesa no bolso.</h2></div>
+                <div class="feature-grid">
+                    <article class="card"><span class="card-icon" aria-hidden="true">R$</span><h3>Lucro além do valor bruto</h3><p>Combustível, manutenção, desgaste e custos fixos ajudam a mostrar uma estimativa mais honesta.</p></article>
+                    <article class="card"><span class="card-icon" aria-hidden="true">↗</span><h3>Overlay sob medida</h3><p>Escolha tamanho, posição, opacidade e quais informações precisam ficar à vista durante a oferta.</p></article>
+                    <article class="card"><span class="card-icon" aria-hidden="true">◎</span><h3>Rotas reconhecíveis</h3><p>Embarque e destino ajudam a localizar corridas no histórico, inclusive quando a mesma rota aparece mais de uma vez.</p></article>
+                    <article class="card"><span class="card-icon" aria-hidden="true">▥</span><h3>Histórico acionável</h3><p>Marque rapidamente se a corrida foi realizada e reveja valor, tempo, distância e resultado da análise.</p></article>
+                    <article class="card"><span class="card-icon" aria-hidden="true">⌁</span><h3>Análises úteis</h3><p>Acompanhe lucro, R$/km, R$/hora, custos e evolução sem gráficos decorativos ou métricas vazias.</p></article>
+                    <article class="card"><span class="card-icon" aria-hidden="true">◉</span><h3>Critérios que são seus</h3><p>O RideAnalyzer compara a oferta com os limites escolhidos pelo motorista; não impõe uma regra universal.</p></article>
+                </div>
             </div>
-        </div>
+        </section>
+
+        <section class="section" id="privacidade">
+            <div class="container privacy-panel privacy-grid">
+                <div>
+                    <p class="eyebrow">Controle e transparência</p><h2 style="margin-top:16px">Permissões explicadas no momento certo.</h2>
+                    <p class="lead">A Acessibilidade tem um aviso próprio antes das configurações do Android. Capturas são processadas localmente e não são enviadas ao servidor.</p>
+                    <div class="hero-actions"><a class="button button-primary" href="privacy-policy.html">Ler política completa</a><a class="button button-secondary" href="account-deletion.html">Excluir conta e dados</a></div>
+                </div>
+                <div class="privacy-list">
+                    <div class="privacy-item"><strong>Sem aceite automático</strong><span>O app não toca no botão e não decide pelo motorista.</span></div>
+                    <div class="privacy-item"><strong>Captura somente quando necessária</strong><span>A imagem é processada no aparelho e descartada.</span></div>
+                    <div class="privacy-item"><strong>Conta removível</strong><span>Exclusão disponível no app e também por solicitação externa.</span></div>
+                    <div class="privacy-item"><strong>Sem venda de dados</strong><span>As informações não são usadas para publicidade.</span></div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="duvidas">
+            <div class="container grid-2">
+                <div class="section-heading"><p class="eyebrow">Dúvidas rápidas</p><h2>Direto ao ponto.</h2><p>O que todo motorista deveria saber antes de ativar o analisador.</p></div>
+                <div class="faq">
+                    <details><summary>O RideAnalyzer aceita corridas sozinho?</summary><p>Não. Ele analisa e apresenta contexto; qualquer ação dentro do app de corrida continua dependendo do motorista.</p></details>
+                    <details><summary>A captura de tela vai para a nuvem?</summary><p>Não. Quando necessária, a captura é processada localmente para OCR e não é enviada ao Supabase.</p></details>
+                    <details><summary>Por que embarque e destino aparecem no histórico?</summary><p>Esses textos ajudam a reconhecer a corrida, agrupar ofertas da mesma rota e confirmar depois se ela foi realizada.</p></details>
+                    <details><summary>Posso apagar minha conta?</summary><p>Sim. A opção está em Perfil → Privacidade e dados, e existe também uma página pública para solicitar exclusão.</p></details>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-tight">
+            <div class="container cta-panel">
+                <p class="eyebrow">Suporte RideAnalyzer</p><h2 style="margin-top:16px">Alguma dúvida sobre conta ou privacidade?</h2><p class="lead">Fale diretamente pelo canal oficial de suporte.</p>
+                <div class="hero-actions"><a class="button button-primary" href="mailto:leonardogsilv1@gmail.com?subject=RideAnalyzer%20-%20Suporte">Enviar e-mail</a></div>
+            </div>
+        </section>
     </main>
+
+    <footer class="site-footer">
+        <div class="container footer-inner"><span>© 2026 RideAnalyzer · Independente da 99 Tecnologia LTDA.</span><nav class="footer-links" aria-label="Links do rodapé"><a href="privacy-policy.html">Política de Privacidade</a><a href="account-deletion.html">Exclusão de conta</a><a href="mailto:leonardogsilv1@gmail.com?subject=RideAnalyzer%20-%20Suporte">Suporte</a></nav></div>
+    </footer>
 </body>
 </html>
