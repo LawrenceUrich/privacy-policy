@@ -399,6 +399,7 @@
                     <li>Dados de assinatura, quando os pagamentos estiverem disponíveis: produto e plano, situação, validade, renovação, datas de verificação e identificadores técnicos da compra. O token da compra é validado no servidor; um hash e uma cópia criptografada são armazenados em tabelas privadas para conferir renovações, cancelamentos, reembolsos e revogações. Não coletamos números de cartão ou dados bancários.</li>
                     <li>Dados de tela: conteúdo visível de ofertas da 99 e do Uber Driver (suporte à Uber em teste). Quando a leitura por acessibilidade não basta, uma captura é feita somente quando necessária, processada localmente e descartada; a imagem não é enviada nem armazenada no Supabase.</li>
                     <li>Suporte e diagnóstico opcional: categoria, assunto e mensagem enviados pelo usuário; se ele optar, versão do app, fabricante/modelo, versão do Android, fuso horário e estado das permissões. O diagnóstico técnico automático, também opcional, inclui identificadores aleatórios de instalação, sessão e evento, horários, uso em primeiro/segundo plano e estado das permissões e da otimização de bateria. Não inclui captura, texto de OCR, rota, localização ou logs.</li>
+                    <li>Métricas do SDK de OCR Google ML Kit: o SDK pode enviar à Google informações de aparelho e versões, identificador por instalação, latência, formato/resolução e tamanho da entrada/saída, configuração, versão, eventos e códigos de erro, para diagnóstico e análise de uso. São dados técnicos, não a imagem ou o texto reconhecido. Essa coleta é distinta do diagnóstico opcional do RideAnalyzer.</li>
                 </ul>
             </article>
 
@@ -410,6 +411,7 @@
                     <li>Análise das ofertas de corrida e exibição do overlay com uma classificação calculada. O RideAnalyzer não aceita nem recusa corridas automaticamente e não decide pelo motorista.</li>
                     <li>Suporte técnico, manutenção do serviço e recuperação de dados quando necessário.</li>
                     <li>Diagnóstico opcional de funcionamento e desempenho para identificar falhas e melhorar a estabilidade.</li>
+                    <li>O Google ML Kit trata suas próprias métricas técnicas para manter, diagnosticar e melhorar o SDK de reconhecimento local.</li>
                     <li>Validação, restauração e gerenciamento do acesso Premium adquirido pela Google Play.</li>
                 </ul>
             </article>
@@ -423,7 +425,8 @@
                     <li>Os dados locais ficam em Room, DataStore e armazenamento criptografado da sessão.</li>
                     <li>O OCR e as capturas de tela são processados somente no aparelho. A captura não é incluída no backup remoto; somente os dados extraídos da oferta, inclusive embarque, destino, nota e quantidade de corridas do passageiro quando disponíveis, entram no histórico sincronizado.</li>
                     <li>Mensagens de suporte e diagnósticos opcionais são enviados ao Supabase apenas após a escolha do usuário.</li>
-                    <li>Os dados não são vendidos nem usados para publicidade. Supabase e Google Play atuam apenas como provedores necessários ao funcionamento, sincronização e cobrança.</li>
+                    <li>A opção &quot;Compartilhar diagnóstico técnico&quot; controla os envios opcionais do RideAnalyzer ao Supabase; não controla as métricas do SDK Google ML Kit, transmitidas por HTTPS à Google. O reconhecimento continua local, sem envio da imagem e do texto reconhecido ao servidor do SDK. Consulte os <a href="https://developers.google.com/ml-kit/terms">termos e privacidade do ML Kit</a> e a <a href="https://developers.google.com/ml-kit/android-data-disclosure">declaração de dados do SDK</a>.</li>
+                    <li>Os dados não são vendidos nem usados pelo RideAnalyzer para publicidade. Supabase, Google Play e Google ML Kit fornecem, respectivamente, infraestrutura da conta/sincronização, cobrança e reconhecimento local com métricas técnicas.</li>
                 </ul>
             </article>
 
