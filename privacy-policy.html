@@ -341,7 +341,7 @@
             <div class="meta-grid">
                 <div class="meta-card">
                     <span>Atualizado em</span>
-                    <strong>15 de setembro de 2026</strong>
+                    <strong>3 de outubro de 2026</strong>
                 </div>
                 <div class="meta-card">
                     <span>Aplicativo</span>
@@ -396,8 +396,8 @@
                     <li>Dados de perfil: nome, e-mail, telefone opcional, tipo de veículo, avatar, metas e configurações do motorista. A foto de perfil escolhida pelo usuário fica somente no aparelho.</li>
                     <li>Dados de ofertas e corridas: valores, distâncias, tempos estimados, embarque, destino, resultado da análise, lucro estimado, status, motivo e anotações. Quando aparecerem na oferta, também são guardadas a nota e a quantidade de corridas do passageiro.</li>
                     <li>Dados de conta: identificador de usuário e informações de sessão e autenticação usadas para login, restauração e sincronização.</li>
-                    <li>Dados de assinatura: produto, situação, validade e identificadores técnicos protegidos da compra. O token bruto é validado no servidor e não é armazenado.</li>
-                    <li>Dados de tela: conteúdo visível da oferta na 99. Quando a leitura por acessibilidade não basta, uma captura é feita somente quando necessária, processada localmente e descartada; a imagem não é enviada nem armazenada no Supabase.</li>
+                    <li>Dados de assinatura, quando os pagamentos estiverem disponíveis: produto e plano, situação, validade, renovação, datas de verificação e identificadores técnicos da compra. O token da compra é validado no servidor; um hash e uma cópia criptografada são armazenados em tabelas privadas para conferir renovações, cancelamentos, reembolsos e revogações. Não coletamos números de cartão ou dados bancários.</li>
+                    <li>Dados de tela: conteúdo visível de ofertas da 99 e do Uber Driver (suporte à Uber em teste). Quando a leitura por acessibilidade não basta, uma captura é feita somente quando necessária, processada localmente e descartada; a imagem não é enviada nem armazenada no Supabase.</li>
                     <li>Suporte e diagnóstico opcional: categoria, assunto e mensagem enviados pelo usuário; se ele optar, versão do app, fabricante/modelo, versão do Android, fuso horário e estado das permissões. O diagnóstico técnico automático, também opcional, inclui identificadores aleatórios de instalação, sessão e evento, horários, uso em primeiro/segundo plano e estado das permissões e da otimização de bateria. Não inclui captura, texto de OCR, rota, localização ou logs.</li>
                 </ul>
             </article>
@@ -418,8 +418,8 @@
                 <h2><span class="step">03</span> Onde e com quem isso fica</h2>
                 <ul>
                     <li>O app usa Supabase como backend para autenticação, banco remoto e sincronização.</li>
-                    <li>Assinaturas são cobradas pela Google Play. O Supabase consulta a API oficial da Google para validar a compra e guarda apenas o estado da assinatura e um hash não reversível do token.</li>
-                    <li>O cadastro usa e-mail e senha. O telefone é opcional, não é identidade de autenticação e não exige confirmação por SMS.</li>
+                    <li>Quando disponíveis, assinaturas são cobradas pela Google Play. O backend consulta a API oficial da Google para validar compras e seu ciclo de vida. O token protegido usa criptografia AES-GCM, com chave mantida fora do banco; não é exposto ao aplicativo nem a outros usuários. A Google mantém os dados de pagamento conforme sua própria política.</li>
+                    <li>O cadastro usa e-mail e senha, com confirmação do e-mail para novas contas. O login com Google é oferecido quando o provedor estiver configurado; nesse fluxo usamos a identidade, o nome e o e-mail retornados pelo provedor. O telefone é opcional, não é identidade de autenticação e não exige confirmação por SMS.</li>
                     <li>Os dados locais ficam em Room, DataStore e armazenamento criptografado da sessão.</li>
                     <li>O OCR e as capturas de tela são processados somente no aparelho. A captura não é incluída no backup remoto; somente os dados extraídos da oferta, inclusive embarque, destino, nota e quantidade de corridas do passageiro quando disponíveis, entram no histórico sincronizado.</li>
                     <li>Mensagens de suporte e diagnósticos opcionais são enviados ao Supabase apenas após a escolha do usuário.</li>
@@ -432,9 +432,9 @@
                 <ul>
                     <li>Perfil e histórico remoto permanecem enquanto a conta estiver ativa e são removidos no fluxo de exclusão. Operações offline pendentes permanecem localmente apenas até a confirmação da sincronização.</li>
                     <li>Ao excluir uma corrida sincronizada, o conteúdo da corrida é removido e permanece apenas um marcador técnico com os identificadores da conta e da corrida para impedir que outro aparelho a recrie. Esse marcador é removido com a exclusão da conta.</li>
-                    <li>O app possui exclusão de conta dentro de Configurações &gt; Privacidade e Conta &gt; Excluir Conta e Dados.</li>
+                    <li>O app possui exclusão de conta em Perfil &gt; Privacidade e dados &gt; Excluir conta e dados. Dados, conta e acesso também estão disponíveis no Perfil.</li>
                     <li>A exclusão remove a conta remota, o perfil, o histórico sincronizado, a sessão local, o banco local e as fotos de perfil salvas no aparelho.</li>
-                    <li>Registros de assinatura vinculados à conta são removidos com ela. A compra e os comprovantes mantidos pela Google seguem os termos e a retenção da própria Google Play.</li>
+                    <li>Registros de assinatura vinculados à conta, inclusive o token criptografado, são removidos com ela. Excluir a conta não cancela automaticamente a assinatura: a renovação deve ser cancelada nas assinaturas da Google Play. A compra e os comprovantes mantidos pela Google seguem os termos e a retenção da própria Google Play.</li>
                     <li>Para solicitar exclusão fora do app, use o canal de suporte abaixo ou a página pública de exclusão: <a href="account-deletion.html">account-deletion.html</a>.</li>
                 </ul>
             </article>
@@ -442,7 +442,8 @@
             <article class="card full" id="permissoes">
                 <h2><span class="step">05</span> Permissões sensíveis</h2>
                 <ul>
-                    <li>O AccessibilityService é usado para ler dados visíveis da oferta na 99 e gerar a análise. Antes de abrir a configuração do Android, o app exibe um aviso próprio e exige confirmação separada do usuário.</li>
+                    <li>O AccessibilityService é usado para ler dados visíveis de ofertas da 99 e do Uber Driver e gerar a análise. O app exige um aviso e consentimento específico; habilitar a permissão nas configurações do Android, sozinho, não autoriza captura. A leitura só ocorre com a acessibilidade autorizada, o consentimento vigente e o Copiloto ativado.</li>
+                    <li>Você pode revogar o consentimento em Copiloto &gt; Status &gt; Revogar leitura de ofertas. Isso desativa a captura e o resumo sobre a tela. A autorização específica é removida ao excluir a conta, limpar os dados ou reinstalar o aplicativo.</li>
                     <li>O overlay apenas mostra os cálculos gerados pelo RideAnalyzer e possui consentimento separado.</li>
                     <li>A leitura por voz é executada localmente pelo mecanismo de texto para fala do Android enquanto a captura estiver ativa.</li>
                     <li>Capturas de tela entram no fluxo somente quando a leitura direta não basta para a análise, são processadas localmente e não são enviadas ao servidor.</li>
